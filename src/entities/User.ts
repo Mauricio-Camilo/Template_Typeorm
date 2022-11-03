@@ -1,17 +1,19 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity('sellers')
-export default class Seller {
+@Entity('users')
+export default class User {
     @PrimaryGeneratedColumn()
-    customer_id: number
+    id: number
+
+     @Column({type: 'text'})
+    name: string
 
     @Column({
-        type: "varchar",
-        length: 255,
+        type: "text",
         unique: true
     })
-    company_cnpj: string
+    cpf: string
 
     @Column({type: 'text'})
-    company_site: string
+    email: string
 }
