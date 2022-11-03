@@ -1,34 +1,34 @@
-import { sellersRepository } from "../repositories/sellersRepository.js";
+import { usersRepository } from "../repositories/usersRepository.js";
 
-async function createUser(seller: any) {
-    console.log("Entrou no service");
+async function createUser(user: any) {
+    console.log("Entrou no service", user);
    
-    const checkUser = await sellersRepository.checkCpfById(seller.company_cnpj);
-    console.log(checkSellerCnpj);
+    const checkUser = await usersRepository.checkCpf(user.cpf);
+    console.log(checkUser);
 
     if (checkUser) {
         throw { name: "alreadyExists", message: "CPF already exists"}
     }
 
-    await sellersRepository.registerUser(seller);
+    await usersRepository.registerUser(user);
 }
 
 async function listUsers() {
-    const sellers = await sellersRepository.getAllUsers();
+    const sellers = await usersRepository.getAllUsers();
     return sellers;
 }
 
-async function deleteUserById(companyId: number) {
-    // await companiesService.checkCompanyId(companyId);
-    // await sellersRepository.deleteSellerById(companyId);
+async function deleteUserById(userId: number) {
+    await usersService.checkUserId(userId);
+    await usersRepository.deleteUserById(userId);
 }
 
-async function checkUserId(companyId: number) {
-    // const response = await sellersRepository.checkSellerById(companyId);
-    // if (!response) {
-    //     throw { name: "notFound", message: "Company not found"}
-    // }
-    // else return response;
+async function checkUserId(userId: number) {
+    const response = await usersRepository.checkUserById(userId);
+    if (!response) {
+        throw { name: "notFound", message: "User not found"}
+    }
+    else return response;
 }
 
 
@@ -36,5 +36,5 @@ export const usersService = {
     createUser,
     listUsers,
     checkUserId,
-    deleteUsers,
+    deleteUserById,
 }

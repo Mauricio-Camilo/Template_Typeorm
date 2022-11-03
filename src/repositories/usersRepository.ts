@@ -1,32 +1,37 @@
 import { AppDataSource } from "../data-source.js"
-import Seller from "../entities/Seller.js"
+import User from "../entities/User.js"
 
-export const userRepository = AppDataSource.getRepository(Seller);
+export const userRepository = AppDataSource.getRepository(User);
 
-async function checkCpfById(id : number) {
-    console.log("CNPJ: ",cnpj);
-  return await sellerRepository.findOne({
-      where: {company_cnpj: cnpj}
+async function checkCpf(cpf : string) {
+    console.log("cpf: ",cpf);
+  return await userRepository.findOne({
+      where: {cpf}
   })
 }
 
-async function registerUser(seller : any) {
-    await sellerRepository.save(seller);
+async function registerUser(user : any) {
+    await userRepository.save(user);
 }
 
 async function getAllUsers(){
-    return await sellerRepository.find();
+    return await userRepository.find();
 }
 
+async function checkUserById(id : number) {
+  return await userRepository.findOne({
+      where: {id}
+  })
+}
 
 async function deleteUserById(id: number) {
+    await userRepository.delete({id})
 }
 
-
 export const usersRepository = {
-    checkCpfById,
+    checkCpf,
     registerUser,
     getAllUsers,
-    checkSellerById,
+    checkUserById,
     deleteUserById,
 }
