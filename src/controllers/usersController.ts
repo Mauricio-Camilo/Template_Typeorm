@@ -16,3 +16,12 @@ export async function deleteUser (req: Request, res: Response) {
     await usersService.deleteUserById(parseInt(id));
     res.status(200).send("User deleted");
 }
+
+/* FORMA ALTERNATIVA DE CRIAR CONTROLLERS */
+export class TestController {
+    async create(req: Request, res: Response) {
+        /* Aqui coloca normalmente os comandos do controlador */
+        res.send("Controlador teste funcionando")
+    }
+}
+
